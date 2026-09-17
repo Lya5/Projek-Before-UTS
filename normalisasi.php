@@ -2,7 +2,7 @@
 
 // Membuat variabel $email dan memberikan nilai berupa string
 // yang memiliki spasi di awal dan akhir serta menggunakan huruf kapital.
-$email = "  John@Mail.Com  ";
+$email = "  Sani@Mail.Com  ";
 
 // Menghapus spasi (whitespace) di awal dan akhir string.
 // Hasil: "John@Mail.Com"

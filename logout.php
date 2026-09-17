@@ -1,15 +1,23 @@
 <?php
-    include_once("fungsi_lib.php");
-    mulai_session();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+include_once("bootstrap.php");
 
-    if (isset($_SESSION['user'])) {
-        catat_log("LOGOUT", ["email" => $_SESSION['user']['email']]);
-    }
 
-    $_SESSION = array();            // mengosongkan seluruh data session
-    session_regenerate_id(true);    // mengganti session id dan menghapus data lama
+$user   = $_SESSION['user'] ?? null;
+$email  = $user['email'] ?? ($_SESSION['email'] ?? '-');
+$iduser = $user['iduser'] ?? ($_SESSION['user_id'] ?? '-');
 
-    set_flash("Anda telah logout.");
-    header("Location: login.php");
-    exit();
-?>
+
+if (class_exists('Log')) {
+    Log::catat("LOGOUT", ["email" => $email, "iduser" => $iduser]);
+}
+
+
+$_SESSION = array();
+session_destroy();
+
+
+header("Location: login.php?msg=logout");
+exit();
